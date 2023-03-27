@@ -14,8 +14,11 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+@RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -28,6 +31,7 @@ public class House {
     @Column(name = "id")
     private Long id;
 
+    @NonNull
     @Column(name = "name", nullable = false)
     private String name;
 

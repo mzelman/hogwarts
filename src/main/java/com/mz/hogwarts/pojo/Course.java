@@ -18,12 +18,14 @@ import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @AllArgsConstructor
 @RequiredArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -35,16 +37,19 @@ public class Course {
     @Column(name = "id")
     private Long id;
 
+    @NonNull
     @Size(min = 3, max = 3, message = "Code must be 3 chatacters.")
     @Pattern(regexp = "^[A-Z0-9]*$", message = "Code must consist of only uppercase letters and numbers.")
     @Column(name = "code", nullable = false)
     private String code;
 
+    @NonNull
     @Size(min = 2, message = "Subject must be at least 2 characters.")
     @Size(max = 30, message = "Subject cannot be longer than 30 characters.")
     @Column(name = "subject", nullable = false)
     private String subject;
 
+    @NonNull
     @Size(min = 10, message = "Description must be at least 10 characters.")
     @Size(max = 200, message = "Description cannot be longer than 200 characters.")
     @Column(name = "description", nullable = false)
