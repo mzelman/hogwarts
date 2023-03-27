@@ -1,50 +1,59 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <link th:href="@{/style.css}" rel="stylesheet">
-    </head>
-    <body>
 
-        <div class="topnav">
-            <a  th:href="@{/}">Main</a>
-            <a class="active" th:href="@{/houses}">Houses</a>
-            <a th:href="@{/courses/page/1}">Courses</a>
+<head>
+    <link th:href="@{/style.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="topnav">
+        <a th:href="@{/}">Main</a>
+        <a class="active" th:href="@{/houses}">Houses</a>
+        <a th:href="@{/courses/page/1}">Courses</a>
+    </div>
+    <br />
+    <h1 th:text="${house.name}"></h1>
+    <h2>Students</h2>
+    <table class="table_students">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Delete</th>
+            <th>Student page</th>
+        </tr>
+        <tr th:each="student: ${students}">
+            <td th:text="*{student.firstName}"></td>
+            <td th:text="*{student.lastName}"></td>
+            <td>
+                <a style="color: rgb(175, 33, 33)" role="button"
+                    th:href="@{/houses/{houseId}/student/{studentId}(houseId=${house.id}, studentId=${student.id})}">x</a>
+            </td>
+            <td>
+                <a role="button"
+                    th:href="@{/houses/{houseId}/student/{studentId}/page(houseId=${house.id}, studentId=${student.id})}">o</a>
+            </td>
+        </tr>
+    </table>
+    <form method="post" th:object="${student}" th:action="@{/houses/{houseId}/student(houseId=${house.id})}">
+        <input type="text" placeholder="First Name" th:field="*{firstName}" />
+        <input type="text" placeholder="Last Name" th:field="*{lastName}" />
+        <input class="a1" type="submit" value="Add" />
+        <p style="color: rgb(175, 33, 33)" th:errors="*{firstName}"></p>
+        <p style="color: rgb(175, 33, 33)" th:errors="*{lastName}"></p>
+    </form>
+    <div>
+        <div style="color: green" th:if="${status} == 'success'">
+            <p>You successfully added a new student!</p>
         </div>
-           <br><br>
-            <table class="table_students">
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Delete</th>
-                    <th>Student page</th>
-                </tr>
-                <tr th:each="student: ${students}">
-                    <td th:text="*{student.firstName}"></td>
-                    <td th:text="*{student.lastName}"></td>
-                    <td> <a style="color:rgb(175, 33, 33)" role="button" th:href="@{/houses/{houseId}/student/{studentId}(houseId=${house.id}, studentId=${student.id})}">x</a> </td>
-                    <td> <a role="button" th:href="@{/houses/{houseId}/student/{studentId}/page(houseId=${house.id}, studentId=${student.id})}">o</a> </td>
-                </tr>
-            </table>
-            <form method="post" th:object="${student}" th:action="@{/houses/{houseId}/student(houseId=${house.id})}">
-                <input type="text" placeholder="First Name" th:field="*{firstName}">
-                <input type="text" placeholder="Last Name" th:field="*{lastName}">
-                <input class="a1" type="submit" value="Add">
-                <p style="color:rgb(175, 33, 33)" th:errors="*{firstName}"></p>
-                <p style="color:rgb(175, 33, 33)" th:errors="*{lastName}"></p>
-            </form>
-            <div>
-                <div style="color:green" th:if="${status} == 'success'">
-                    <p> You successfully added a new student! </p> 
-                </div>
-    
-                <div style="color:rgb(175, 33, 33)" th:if="${status} == 'failed'">
-                    <p th:text="'That student is already listed in ' +  ${studentHouse} + '.'"></p> 
-               </div>
-            <div>
-                <p><a class="a1" th:href="@{/houses}" role="button">Back</a></p>
-            </div>
+
+        <div style="color: rgb(175, 33, 33)" th:if="${status} == 'failed'">
+            <p th:text="'That student is already listed in ' +  ${studentHouse} + '.'"></p>
         </div>
-        
-    </body>
+        <div>
+            <p><a class="a1" th:href="@{/houses}" role="button">Back</a></p>
+        </div>
+    </div>
+</body>
+
 </html>

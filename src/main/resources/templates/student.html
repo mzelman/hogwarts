@@ -1,40 +1,48 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <link th:href="@{/style.css}" rel="stylesheet">
-    </head>
-    <body>
 
-        <div class="topnav">
-            <a  th:href="@{/}">Main</a>
-            <a class="active" th:href="@{/houses}">Houses</a>
-            <a th:href="@{/courses/page/1}">Courses</a>
-        </div>
-        <br><br>
-        <h2 th:text="${student.firstName} + ' ' + ${student.lastName}"></h2>
-        <h3 th:text="${student.house.name}"></h3>
-        <table>
-            <tr>
-                <th>Course</th>
-                <th>Grades</th>
-                <th>Average</th>
-            </tr>
-            <tr th:each="course : ${courses}">
-                <td th:text="${course.subject}"></td>
-                <td><p style="display:inline" th:each="grade: ${course.grades}" th:text="${grade.student.id == student.id } ? ${grade.score} + ' '"></p></td>
-                <td th:text="${averages[course.id] == 0 } ? '-' : ${averages[course.id]}"></td>
-            </tr>
-        </table>
-        <h3>Enroll to course</h3>
-        <form method="post" th:object="${course}" th:action="@{/houses/{houseId}/student/{studentId}/page(houseId=${student.house.id}, studentId=${student.id})}">
-            <select class="select" th:field="${course.id}">
-                        <option value="">Choose Course</option>
-                        <option th:each="course: ${notEnrolledCourses}" th:text="${course.subject}" th:value="${course.id}"> Placeholder </option>
-            </select>
-                    <input class="a1" type="submit" value="Enroll">
-        </form>
-        <br>
-        <a class="a1" th:href="@{/houses/{id}(id=${student.house.id})}">Back</a>
-    </body>
+<head>
+    <link th:href="@{/style.css}" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="topnav">
+        <a th:href="@{/}">Main</a>
+        <a class="active" th:href="@{/houses}">Houses</a>
+        <a th:href="@{/courses/page/1}">Courses</a>
+    </div>
+    <br><br>
+    <h1 th:text="${student.firstName} + ' ' + ${student.lastName}"></h1>
+    <h2 th:text="${student.house.name}"></h2>
+    <table>
+        <tr>
+            <th>Course</th>
+            <th>Grades</th>
+            <th>Average</th>
+        </tr>
+        <tr th:each="course : ${courses}">
+            <td th:text="${course.subject}"></td>
+            <td>
+                <p style="display:inline" th:each="grade: ${course.grades}"
+                    th:text="${grade.student.id == student.id } ? ${grade.score} + ' '"></p>
+            </td>
+            <td th:text="${averages[course.id] == 0 } ? '-' : ${averages[course.id]}"></td>
+        </tr>
+    </table>
+    <h3>Enroll to course</h3>
+    <form method="post" th:object="${course}"
+        th:action="@{/houses/{houseId}/student/{studentId}/page(houseId=${student.house.id}, studentId=${student.id})}">
+        <select class="select" th:field="${course.id}">
+            <option style="color: gray;" value="">Choose Course</option>
+            <option th:each="course: ${notEnrolledCourses}" th:text="${course.subject}" th:value="${course.id}">
+                Placeholder </option>
+        </select>
+        <input class="a1" type="submit" value="Enroll">
+    </form>
+    <br>
+    <a class="a1" th:href="@{/houses/{id}(id=${student.house.id})}">Back</a>
+</body>
+
 </html>

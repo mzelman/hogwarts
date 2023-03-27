@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.mz.hogwarts.pojo.Course;
+import com.mz.hogwarts.pojo.House;
 import com.mz.hogwarts.pojo.Student;
 import com.mz.hogwarts.repository.CourseRepository;
 import com.mz.hogwarts.repository.HouseRepository;
@@ -42,7 +43,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public void addStudent(Student student, Long houseId) {
-        student.setHouse(HouseServiceImpl.unwrapHouse(houseRepository.findById(houseId), houseId));
+        student.setHouse(unwrapHouse(houseRepository.findById(houseId), houseId));
         studentRepository.save(student);
     }
 
@@ -78,4 +79,9 @@ public class StudentServiceImpl implements StudentService {
         if (entity.isPresent()) return entity.get();
         else throw new IndexOutOfBoundsException(id);
     }
+
+    static House unwrapHouse(Optional<House> entity, Long id) {
+        if (entity.isPresent()) return entity.get();
+        else throw new IndexOutOfBoundsException(id);
+}
 }

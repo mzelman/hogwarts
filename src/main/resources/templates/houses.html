@@ -1,31 +1,44 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <link th:href="@{/style.css}" rel="stylesheet">
-    </head>
-    <body>
-        <div class="topnav">
-            <a  th:href="@{/}">Main</a>
-            <a class="active" th:href="@{/houses}">Houses</a>
-            <a th:href="@{/courses/page/1}">Courses</a>
-        </div>
-        <br>
-        <br>
-        <br>
-        <table>
-            <tr>
-                <td class="td-hidden"><img class="myimg" src="gryffindor_logo.png" alt="Gryffindor logo"></td>
-                <td class="td-hidden"><img class="myimg" src="slytherin_logo.png" alt="Slytherin logo"></td>
-                <td class="td-hidden"><img class="myimg" src="ravenclaw_logo.png" alt="Ravenclaw logo"></td>
-                <td class="td-hidden"><img class="myimg" src="hufflepuff_logo.png" alt="Hufflepuff logo"></td>
-            </tr>
-            <tr>
-                <td class="td-hidden" th:each="house: ${houses}"><a th:href="@{houses/{id}(id=${house.id})}" th:text="*{house.name}"></a></td>
-            </tr>
-            <tr>
-                <td class="td-hidden" th:each="house: ${houses}" th:text="*{house.points} + ' points'"></td>
-            </tr>
-        </table>
-    </body>
+
+<head>
+    <link th:href="@{/style.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="topnav">
+        <a th:href="@{/}">Main</a>
+        <a class="active" th:href="@{/houses}">Houses</a>
+        <a th:href="@{/courses/page/1}">Courses</a>
+    </div>
+    <br />
+    <br />
+    <br />
+    <table class="td-hidden">
+        <tr>
+            <td class="td-hidden">
+                <img class="myimg" src="gryffindor_logo.png" alt="Gryffindor logo" />
+            </td>
+            <td class="td-hidden">
+                <img class="myimg" src="slytherin_logo.png" alt="Slytherin logo" />
+            </td>
+            <td class="td-hidden">
+                <img class="myimg" src="ravenclaw_logo.png" alt="Ravenclaw logo" />
+            </td>
+            <td class="td-hidden">
+                <img class="myimg" src="hufflepuff_logo.png" alt="Hufflepuff logo" />
+            </td>
+        </tr>
+        <tr>
+            <td class="td-hidden" th:each="house: ${houses}">
+                <a th:href="@{houses/{id}(id=${house.id})}" th:text="*{house.name}"></a>
+            </td>
+        </tr>
+        <tr>
+            <td class="td-hidden" th:each="house: ${houses}" th:text="*{house.points} + ' points'"></td>
+        </tr>
+    </table>
+</body>
+
 </html>

@@ -31,7 +31,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "student", uniqueConstraints = {@UniqueConstraint (columnNames = {"house_id"})})
+@Table(name = "student")
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

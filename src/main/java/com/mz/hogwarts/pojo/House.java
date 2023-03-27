@@ -38,6 +38,6 @@ public class House {
     @Column(name = "points", nullable = false)
     private int points;
 
-    @OneToMany(mappedBy = "house", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "house")
     private List<Student> students;
 }

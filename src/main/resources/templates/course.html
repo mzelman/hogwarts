@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <link th:href="@{/style.css}" rel="stylesheet">
-    </head>
-    <body>
 
-        <div class="topnav">
-            <a  th:href="@{/}">Main</a>
-            <a  th:href="@{/houses}">Houses</a>
-            <a class="active" th:href="@{/courses/page/1}">Courses</a>
-        </div>
-        <br><br>
-        <div th:object="${course}">
-            <h1 th:text="*{subject}"></h1>
-            <p th:text="*{code}"></p>
-            <p th:text="*{description}"></p>
-            <a class="a1" th:href="@{/course/{id}/edit(id=${course.id})}">Edit</a>
-        </div>
-        <br>
-        <a class="a1" th:href="@{/course/{id}/students(id=${course.id})}">Student List</a>
-        <br><br>
-        <a class="a1" th:href="@{/courses/page/1}">Back</a>
-    </body>
+<head>
+    <link th:href="@{/style.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="topnav">
+        <a th:href="@{/}">Main</a>
+        <a th:href="@{/houses}">Houses</a>
+        <a class="active" th:href="@{/courses/page/1}">Courses</a>
+    </div>
+    <br /><br />
+    <div th:object="${course}">
+        <h1 th:text="*{subject}"></h1>
+        <p th:text="*{code}"></p>
+        <p th:text="*{description}"></p>
+        <a class="a1" th:href="@{/course/{id}/edit(id=${course.id})}">Edit</a>
+    </div>
+    <br />
+    <a class="a1" th:href="@{/course/{id}/students(id=${course.id})}">Student List</a>
+    <br /><br />
+    <a class="a1" th:href="@{/courses/page/1}">Back</a>
+</body>
+
 </html>

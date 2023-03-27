@@ -1,57 +1,65 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link th:href="@{/style.css}" rel="stylesheet">
-    </head>
-    <body>
-        <div class="topnav">
-            <a  th:href="@{/}">Main</a>
-            <a  th:href="@{/houses}">Houses</a>
-            <a class="active" th:href="@{/courses/page/1}">Courses</a>
-        </div>
-        <h1>Courses</h1>
-        <div>
-            <table class="table_students">
-                <tr>
-                    <th>Code</th>
-                    <th>Subject</th>
-                    <th>Description</th>
-                </tr>
-                <tr th:each="course: ${courses}">
-                    <td width="70px" th:text="*{course.code}"></td>
-                    <td width="200px"> <a th:text="*{course.subject}" style="color:rgb(175, 33, 33)" role="button" th:href="@{/course/{id}(id=${course.id})}"></a> </td>
-                    <td width="400px" th:text="*{course.description}"></td>
-                </tr>
-            </table>
-        </div>
-        <div style="color:green" th:if="${status} == 'success'">
-            <p>Successfully added a new course!</p> 
-        </div>
-        <br>
-        <a class="a1" th:href="@{/course/new}">Add Course</a>
-        <br>
-            <br>
-            <div>
+
+<head>
+    <link th:href="@{/style.css}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="topnav">
+        <a th:href="@{/}">Main</a>
+        <a th:href="@{/houses}">Houses</a>
+        <a class="active" th:href="@{/courses/page/1}">Courses</a>
+    </div>
+    <h1>Courses</h1>
+    <div>
+        <table class="table_students">
+            <tr>
+                <th>Code</th>
+                <th>Subject</th>
+                <th>Description</th>
+            </tr>
+            <tr th:each="course: ${courses}">
+                <td width="70px" th:text="*{course.code}"></td>
+                <td width="200px"> <a th:text="*{course.subject}" style="color:rgb(175, 33, 33)" role="button"
+                        th:href="@{/course/{id}(id=${course.id})}"></a> </td>
+                <td width="400px" th:text="*{course.description}"></td>
+            </tr>
+        </table>
+    </div>
+    <div style="color:green" th:if="${status} == 'success'">
+        <p>Successfully added a new course!</p>
+    </div>
+    <br>
+    <a class="a1" th:href="@{/course/new}">Add Course</a>
+    <br>
+    <br>
+    <div>
+        <div class="pagination">
+            <div th:if="${totalPages > 1}">
                 <div class="pagination">
-                    <div th:if="${totalPages > 1}">
-                        <div class="pagination">
-                            <a class="a2" th:if="${currentPage} != 1" th:href="@{'/courses/page/' + ${currentPage - 1}}">Previous</a>
-                            <span th:unless="${currentPage} != 1">Previous</span>
-                        </div>
-                        <div class="pagination">
-                            <span th:each="page : ${#numbers.sequence(1, totalPages)}">
-                                <a class="a2" th:if="${currentPage != page}" th:href="@{'/courses/page/' + ${page}}" th:text="${page}"></a>
-                                <span th:unless="${currentPage != page}" th:text="${page}"></span>
-                            </span>
-                        </div>
-                        <div class="pagination">
-                            <a class="a2" th:if="${currentPage} < ${totalPages}" th:href="@{'/courses/page/' + ${currentPage + 1}}">Next</a>
-                            <span th:unless="${currentPage} < ${totalPages}">Next</span>
-                        </div>
-                        <div class="pagination">
-                            <a class="a2" th:if="${currentPage} < ${totalPages}" th:href="@{'/courses/page/' + ${totalPages}}">Last</a>
-                            <span th:unless="${currentPage} < ${totalPages}">Last</span>
-                        </div>
-                    </div>
-    </body>
+                    <a class="a2" th:if="${currentPage} != 1"
+                        th:href="@{'/courses/page/' + ${currentPage - 1}}">Previous</a>
+                    <span th:unless="${currentPage} != 1">Previous</span>
+                </div>
+                <div class="pagination">
+                    <span th:each="page : ${#numbers.sequence(1, totalPages)}">
+                        <a class="a2" th:if="${currentPage != page}" th:href="@{'/courses/page/' + ${page}}"
+                            th:text="${page}"></a>
+                        <span th:unless="${currentPage != page}" th:text="${page}"></span>
+                    </span>
+                </div>
+                <div class="pagination">
+                    <a class="a2" th:if="${currentPage} < ${totalPages}"
+                        th:href="@{'/courses/page/' + ${currentPage + 1}}">Next</a>
+                    <span th:unless="${currentPage} < ${totalPages}">Next</span>
+                </div>
+                <div class="pagination">
+                    <a class="a2" th:if="${currentPage} < ${totalPages}"
+                        th:href="@{'/courses/page/' + ${totalPages}}">Last</a>
+                    <span th:unless="${currentPage} < ${totalPages}">Last</span>
+                </div>
+            </div>
+</body>
+
 </html>

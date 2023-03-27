@@ -1,53 +1,63 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <link th:href="@{/style.css}" rel="stylesheet">
-    </head>
-    <body>
 
-        <div class="topnav">
-            <a  th:href="@{/}">Main</a>
-            <a  th:href="@{/houses}">Houses</a>
-            <a class="active" th:href="@{/courses/page/1}">Courses</a>
-        </div>
-        <div>
-            <table th:object="${course}">
-                <h2>Students</h2>
-                <h3 th:text="*{subject}"></h3>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>House</th>
-                    <th>Grades</th>
-                    <th>Average</th>
-                    <th>New grade</th>
-                </tr>
-                <tr th:object="${student}">
-                    <td th:text="*{firstName}"></td>
-                    <td th:text="*{lastName}"></td>
-                    <td th:text="*{house.name}"></td>
-                    <td><p style="display:inline" th:each="grade: ${grades}" th:text="${grade.course.id == course.id } ? ${grade.score} + ' '"></p></td>
-                    <td th:text="${averages[student.id] == 0 } ? '-' : ${averages[student.id]}"></td>
-                    <td>
-                        <form method="post" th:object="${grade}" th:action="@{/course/{courseId}/student/{studentId}/grade/add(courseId=${course.id}, studentId=${student.id})}">
-                            <input type="text" placeholder="Score" th:field="*{score}">
-                            <input type="submit" value="Add grade">
-                        </form>
-                    </td>
-                </tr>
-            </table>
-            <p style="color:rgb(175, 33, 33)" th:errors="${grade.score}"></p>
-        </div>
-        <div>
-            <form method="post" th:object="${grade}" th:action="@{/course/{courseId}/student/{studentId}/grade/delete(courseId=${course.id}, studentId=${student.id})}">
-                <select class="select" th:field="${grade.id}">
-                            <option value="">Choose Grade</option>
-                            <option th:each="grade: ${grades}" th:text="${grade.course.subject == course.subject } ? ${grade.score}" th:value="${grade.id}"> Placeholder </option>
-                </select>
-                        <input type="submit" value="Delete">
-            </form>
-            <a class="a1" th:href="@{/course/{courseId}/students(courseId=${course.id})}">Back</a>
-        </div>
-    </body>
+<head>
+    <link th:href="@{/style.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="topnav">
+        <a th:href="@{/}">Main</a>
+        <a th:href="@{/houses}">Houses</a>
+        <a class="active" th:href="@{/courses/page/1}">Courses</a>
+    </div>
+    <div>
+        <table th:object="${course}">
+            <h2>Students</h2>
+            <h3 th:text="*{subject}"></h3>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>House</th>
+                <th>Grades</th>
+                <th>Average</th>
+                <th>New grade</th>
+            </tr>
+            <tr th:object="${student}">
+                <td th:text="*{firstName}"></td>
+                <td th:text="*{lastName}"></td>
+                <td th:text="*{house.name}"></td>
+                <td>
+                    <p style="display: inline" th:each="grade: ${grades}"
+                        th:text="${grade.course.id == course.id } ? ${grade.score} + ' '"></p>
+                </td>
+                <td th:text="${averages[student.id] == 0 } ? '-' : ${averages[student.id]}"></td>
+                <td>
+                    <form method="post" th:object="${grade}"
+                        th:action="@{/course/{courseId}/student/{studentId}/grade/add(courseId=${course.id}, studentId=${student.id})}">
+                        <input type="text" placeholder="Score" th:field="*{score}" />
+                        <input type="submit" value="Add grade" />
+                    </form>
+                </td>
+            </tr>
+        </table>
+        <p style="color: rgb(175, 33, 33)" th:errors="${grade.score}"></p>
+    </div>
+    <div>
+        <form method="post" th:object="${grade}"
+            th:action="@{/course/{courseId}/student/{studentId}/grade/delete(courseId=${course.id}, studentId=${student.id})}">
+            <select class="select" th:field="${grade.id}">
+                <option value="">Choose Grade</option>
+                <option th:each="grade: ${grades}" th:text="${grade.course.subject == course.subject } ? ${grade.score}"
+                    th:value="${grade.id}">
+                    Placeholder
+                </option>
+            </select>
+            <input type="submit" value="Delete" />
+        </form>
+        <a class="a1" th:href="@{/course/{courseId}/students(courseId=${course.id})}">Back</a>
+    </div>
+</body>
+
 </html>
