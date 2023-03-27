@@ -78,7 +78,7 @@ public class StudentController {
     @PostMapping("/course/{courseId}/enroll")
     public String enrollStudent(Model model, @PathVariable Long courseId, Student student) {
         if (student.getId() == null) {
-            model.addAttribute("status", "failed");
+            model.addAttribute("status", "failed2");
             addBasicModelAttributes(model, courseId);
             return "students";
         }
