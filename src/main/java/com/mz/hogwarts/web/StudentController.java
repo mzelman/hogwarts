@@ -42,18 +42,17 @@ public class StudentController {
     
     @GetMapping("/houses/{houseId}/student/{studentId}/page")
     public String studentPage(Model model, @PathVariable Long houseId, @PathVariable Long studentId) {
-        Map<Long, Double> averages = gradeService
-                                    .averageStudentGrades(studentService.getStudentById(studentId).getCourses(), studentId);
-        model.addAttribute("student", studentService.getStudentById(studentId));
-        model.addAttribute("averages", averages);
-        model.addAttribute("notEnrolledCourses", studentService.getNotEnrolledCourses(studentId));
-        model.addAttribute("course", new Course());
-        model.addAttribute("courses", courseService.getAllStudentCourses(studentId));
+        addBasicModelAttributesStudent(model, studentId);
         return "student";
     }
 
     @PostMapping("/houses/{houseId}/student/{studentId}/page")
     public String enrollToCourse(Model model, @PathVariable Long studentId, Course course) {
+        if (course.getId() == null) {
+            model.addAttribute("status", "failed");
+            addBasicModelAttributesStudent(model, studentId);
+            return "student";
+        }
         studentService.enrollToCourse(studentId, courseService.getCourseById(course.getId()));
         return "redirect:/houses/{houseId}/student/{studentId}/page";
     }
@@ -129,5 +128,15 @@ public class StudentController {
         model.addAttribute("grade", new Grade());
         model.addAttribute("points", new PointUpdater());
         model.addAttribute("averages", averages);
+    }
+
+    private void addBasicModelAttributesStudent(Model model, Long studentId) {
+        Map<Long, Double> averages = gradeService
+        .averageStudentGrades(studentService.getStudentById(studentId).getCourses(), studentId);
+        model.addAttribute("student", studentService.getStudentById(studentId));
+        model.addAttribute("averages", averages);
+        model.addAttribute("notEnrolledCourses", studentService.getNotEnrolledCourses(studentId));
+        model.addAttribute("course", new Course());
+        model.addAttribute("courses", courseService.getAllStudentCourses(studentId));
     }
 }

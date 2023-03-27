@@ -13,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -37,18 +38,21 @@ public class Course {
     @Column(name = "id")
     private Long id;
 
+    @NotBlank(message = "Code cannot be blank.")
     @NonNull
     @Size(min = 3, max = 3, message = "Code must be 3 chatacters.")
     @Pattern(regexp = "^[A-Z0-9]*$", message = "Code must consist of only uppercase letters and numbers.")
     @Column(name = "code", nullable = false)
     private String code;
-
+    
+    @NotBlank(message = "Subject cannot be blank.")
     @NonNull
     @Size(min = 2, message = "Subject must be at least 2 characters.")
     @Size(max = 30, message = "Subject cannot be longer than 30 characters.")
     @Column(name = "subject", nullable = false)
     private String subject;
 
+    @NotBlank(message = "Description cannot be blank.")
     @NonNull
     @Size(min = 10, message = "Description must be at least 10 characters.")
     @Size(max = 200, message = "Description cannot be longer than 200 characters.")
