@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link th:href="@{/style.css}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="topnav">
+            <a  th:href="@{/}">Main</a>
+            <a  th:href="@{/houses}">Houses</a>
+            <a class="active" th:href="@{/courses/page/1}">Courses</a>
+        </div>
+        <h1>New Course</h1>
+            <form method="post" th:object="${course}" th:action="@{/course/new/add}">
+                <input type="text" placeholder="Code" th:field="*{code}">
+                <input type="text" placeholder="Subject" th:field="*{subject}">
+                <textarea type="text" placeholder="Description" th:field="*{description}"></textarea>
+                <br>
+                <input class="a1" type="submit" value="Add">
+            </form>
+            <div style="color:rgb(175, 33, 33)" th:if="${status} == 'failed'">
+                <p>Course with this code or subject already exists.</p> 
+            </div>
+            <p style="color:rgb(175, 33, 33)" th:errors="${course.code}"></p>
+            <p style="color:rgb(175, 33, 33)" th:errors="${course.subject}"></p>
+            <p style="color:rgb(175, 33, 33)" th:errors="${course.description}"></p>
+            <br>
+            <a class="a1" th:href="@{/courses/page/1}">Back</a>
+    </body>
+</html>
