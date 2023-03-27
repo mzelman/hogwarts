@@ -77,6 +77,11 @@ public class StudentController {
 
     @PostMapping("/course/{courseId}/enroll")
     public String enrollStudent(Model model, @PathVariable Long courseId, Student student) {
+        if (student.getId() == null) {
+            model.addAttribute("status", "failed");
+            addBasicModelAttributes(model, courseId);
+            return "students";
+        }
         courseService.enrollStudent(courseId, studentService.getStudentById(student.getId()));
         return "redirect:/course/{courseId}/students";
     }
