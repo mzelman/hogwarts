@@ -42,7 +42,7 @@
         <input class="a1" type="submit" value="Enroll">
     </form>
     <div style="color: rgb(175, 33, 33)" th:if="${status} == 'failed'">
-        <p>Choose a subject.</p>
+        <p>Choose a course.</p>
     </div>
     <br>
     <a class="a1" th:href="@{/houses/{id}(id=${student.house.id})}">Back</a>
